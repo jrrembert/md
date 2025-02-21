@@ -1,0 +1,12 @@
+[package]
+name = "markdown_editor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+metal = "0.27.0"
+cocoa = "0.25.0"
+objc = "0.2.7"
+foreign-types = "0.5.0"
+pulldown-cmark = "0.9.3"
+winit = "0.29.10" 
