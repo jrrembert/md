@@ -1,12 +1,13 @@
 [package]
-name = "markdown_editor"
+name = "md"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-metal = "0.27.0"
-cocoa = "0.25.0"
-objc = "0.2.7"
-foreign-types = "0.5.0"
-pulldown-cmark = "0.9.3"
-winit = "0.29.10" 
+winit = "0.27.0"
+wgpu = "0.14.0"
+futures = "0.3.21"
+pollster = "0.3.0"
+glyph_brush = "0.7.12"
+glyph_brush_layout = "0.2.3"
+ab_glyph = "0.2.21"
