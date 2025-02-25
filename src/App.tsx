@@ -57,15 +57,28 @@ function Editor() {
   const [text, setText] = useState("");
 
   return (
-    <main className="container">
-      <h1>Editor</h1>
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Start typing..."
-        style={{ width: "100%", height: "300px", padding: "10px", fontSize: "16px" }}
-      />
-      <Link to="/">
+    <main className="container" style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+      <div style={{ flex: 1, padding: "10px", boxSizing: "border-box" }}>
+        <h1>Editor</h1>
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Start typing..."
+          style={{
+            width: "100%",
+            height: "calc(100% - 40px)",
+            padding: "10px",
+            fontSize: "16px",
+            boxSizing: "border-box",
+            resize: "none"
+          }}
+        />
+      </div>
+      <div style={{ flex: 1, padding: "10px", borderLeft: "1px solid #ccc", boxSizing: "border-box" }}>
+        <h1>Second View</h1>
+        <p>{text}</p>
+      </div>
+      <Link to="/" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
         <button>Back to Home</button>
       </Link>
     </main>
