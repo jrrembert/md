@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
+import { marked } from "marked";
 import "./App.css";
 
 function Home() {
@@ -75,8 +76,11 @@ function Editor() {
         />
       </div>
       <div style={{ flex: 1, padding: "10px", borderLeft: "1px solid #ccc", boxSizing: "border-box" }}>
-        <h1>Second View</h1>
-        <p>{text}</p>
+        <h1>Markdown Preview</h1>
+        <div
+          dangerouslySetInnerHTML={{ __html: marked(text) }}
+          style={{ overflowY: "auto", height: "calc(100% - 40px)", textAlign: "left", padding: "10px" }}
+        />
       </div>
       <Link to="/" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
         <button>Back to Home</button>
