@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import { marked } from "marked";
+import DOMPurify from "dompurify";
 import "./App.css";
 
 function Home() {
@@ -107,7 +108,7 @@ function Editor() {
       >
         <h1>Markdown Preview</h1>
         <div
-          dangerouslySetInnerHTML={{ __html: marked(text) }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(text, { async: false })) }}
           style={{ overflowY: "auto", height: "calc(100% - 40px)", textAlign: "left", padding: "10px" }}
         />
       </div>
