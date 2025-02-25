@@ -68,7 +68,27 @@ function Editor() {
       e.preventDefault();
       const textarea = e.currentTarget;
       const { selectionStart, selectionEnd } = textarea;
-      
+
+      // check for single and multiline selection
+      if (selectionStart != selectionEnd) {
+        const selectedText = text.substring(selectionStart, selectionEnd);
+
+        // handle indentation
+        const indentedText = e.shiftKey
+          ? selectedText.replace(/^    /gm, "")  // unindent w/ Shift + Tab
+          : selectedText.replace(/^/gm, "    "); // indent w/ Tab
+
+        const newText = text.substring(0, selectionStart) + indentedText + text.substring(selectionEnd);
+        setText(newText);
+       
+        // update selection
+        textarea.value = newText;
+        textarea.selectionStart = selectionStart;
+        textarea.selectionEnd = selectionStart + indentedText.length;
+        
+        return;      
+      }
+
       // Insert tab character at cursor position
       const newValue = text.substring(0, selectionStart) + "    " + text.substring(selectionEnd);
       
