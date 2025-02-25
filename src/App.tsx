@@ -85,7 +85,7 @@ function Editor() {
         textarea.value = newText;
         textarea.selectionStart = selectionStart;
         textarea.selectionEnd = selectionStart + indentedText.length;
-        
+
         return;      
       }
 
@@ -128,7 +128,17 @@ function Editor() {
       >
         <h1>Markdown Preview</h1>
         <div
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(text, { async: false })) }}
+          dangerouslySetInnerHTML={{
+            __html: (() => {
+              try {
+                const renderedMarkdown = marked(text, { async: false });
+                return DOMPurify.sanitize(renderedMarkdown);
+              } catch (error) {
+                console.error("Error rendering markdown:", error);
+                return `<p class="error">Error rendering markdown</p>`;
+              }
+            })()
+          }}
           style={{ overflowY: "auto", height: "calc(100% - 40px)", textAlign: "left", padding: "10px" }}
         />
       </div>
