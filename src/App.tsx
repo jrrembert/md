@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
-function App() {
+function Home() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
 
@@ -44,7 +45,41 @@ function App() {
         <button type="submit">Greet</button>
       </form>
       <p>{greetMsg}</p>
+
+      <Link to="/editor">
+        <button>Go to Editor</button>
+      </Link>
     </main>
+  );
+}
+
+function Editor() {
+  const [text, setText] = useState("");
+
+  return (
+    <main className="container">
+      <h1>Editor</h1>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Start typing..."
+        style={{ width: "100%", height: "300px", padding: "10px", fontSize: "16px" }}
+      />
+      <Link to="/">
+        <button>Back to Home</button>
+      </Link>
+    </main>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/editor" element={<Editor />} />
+      </Routes>
+    </Router>
   );
 }
 
