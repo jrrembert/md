@@ -75,8 +75,8 @@ function Editor() {
 
         // handle indentation
         const indentedText = e.shiftKey
-          ? selectedText.replace(/^    /gm, "")  // unindent w/ Shift + Tab
-          : selectedText.replace(/^/gm, "    "); // indent w/ Tab
+          ? selectedText.replace(/^ {1,4}/gm, "") // unindent w/ Shift + Tab
+          : selectedText.replace(/^/gm, "    ");  // indent w/ Tab
 
         const newText = text.substring(0, selectionStart) + indentedText + text.substring(selectionEnd);
         setText(newText);
