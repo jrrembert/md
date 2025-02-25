@@ -57,6 +57,24 @@ function Home() {
 function Editor() {
   const [text, setText] = useState("");
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const textarea = e.currentTarget;
+      const { selectionStart, selectionEnd } = textarea;
+      
+      // Insert tab character at cursor position
+      const newValue = text.substring(0, selectionStart) + "    " + text.substring(selectionEnd);
+      
+      // Update the text state
+      setText(newValue);
+      
+      // Immediately set the new cursor position on the textarea element
+      textarea.value = newValue;
+      textarea.selectionStart = textarea.selectionEnd = selectionStart + 4;
+    }
+  };
+
   return (
     <main className="container" style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
       <div style={{ flex: 1, padding: "10px", boxSizing: "border-box" }}>
@@ -64,6 +82,7 @@ function Editor() {
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Start typing..."
           style={{
             width: "100%",
