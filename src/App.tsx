@@ -59,6 +59,11 @@ function Editor() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Tab") {
+      // Allow default behavior if Option (Alt) key is pressed
+      if (e.altKey) {
+        return;
+      }
+      
       e.preventDefault();
       const textarea = e.currentTarget;
       const { selectionStart, selectionEnd } = textarea;
@@ -84,6 +89,7 @@ function Editor() {
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Start typing..."
+          aria-label="Markdown editor. Use Tab to indent. Use any Option key with Tab to navigate."
           style={{
             width: "100%",
             height: "calc(100% - 40px)",
@@ -94,7 +100,11 @@ function Editor() {
           }}
         />
       </div>
-      <div style={{ flex: 1, padding: "10px", borderLeft: "1px solid #ccc", boxSizing: "border-box" }}>
+      <div 
+        style={{ flex: 1, padding: "10px", borderLeft: "1px solid #ccc", boxSizing: "border-box" }}
+        role="region"
+        aria-label="Markdown preview"  
+      >
         <h1>Markdown Preview</h1>
         <div
           dangerouslySetInnerHTML={{ __html: marked(text) }}
